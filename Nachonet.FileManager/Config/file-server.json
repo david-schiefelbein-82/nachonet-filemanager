@@ -1,0 +1,121 @@
+{
+  "root-folders": {
+    "/M-Drive/": "M:",
+    "/C-temp/": "C:\\temp"
+    },
+    "upload-directory": "C:\\Dev\\Upload",
+    "upload-chunk-size": 512000,
+    "comparison": "CurrentCultureIgnoreCase",
+    "file-types": {
+      ".txt": {
+        "type": "text",
+        "syntax": "text",
+        "read-only": false,
+        "icon": "file-text.svg",
+        "max-size": 1048576
+      },
+      ".css": {
+        "type": "text",
+        "syntax": "css",
+        "read-only": false,
+        "icon": "file-css.svg",
+        "max-size": 1048576
+      },
+      ".json": {
+        "type": "text",
+        "syntax": "json",
+        "read-only": false,
+        "icon": "file-code.svg",
+        "max-size": 1048576
+      },
+      ".md": {
+        "type": "text",
+        "syntax": "markdown",
+        "read-only": false,
+        "icon": "file-code.svg",
+        "max-size": 1048576
+      },
+      ".js": {
+        "type": "text",
+        "syntax": "javascript",
+        "read-only": false,
+        "icon": "file-js.svg",
+        "max-size": 1048576
+      },
+      ".c": {
+        "type": "text",
+        "syntax": "c_cpp",
+        "read-only": false,
+        "max-size": 1048576
+      },
+      ".cpp": {
+        "type": "text",
+        "syntax": "c_cpp",
+        "read-only": false,
+        "max-size": 1048576
+      },
+      ".cs": {
+        "type": "text",
+        "syntax": "csharp",
+        "read-only": false,
+        "max-size": 1048576
+      },
+      ".java": {
+        "type": "text",
+        "syntax": "java",
+        "read-only": false,
+        "max-size": 1048576
+      },
+      ".html": {
+        "type": "text",
+        "syntax": "html",
+        "read-only": false,
+        "max-size": 1048576
+      },
+      ".log": {
+        "type": "text",
+        "syntax": "text",
+        "read-only": false,
+        "max-size": 10485760
+      },
+      ".xml": {
+        "type": "text",
+        "syntax": "xml",
+        "read-only": false,
+        "icon": "file-xml.svg",
+        "max-size": 1048576
+      },
+      ".png": {
+        "type": "image",
+        "icon": "file-image.svg"
+      },
+      ".jpg": {
+        "type": "image",
+        "icon": "file-image.svg"
+      },
+      ".mp4": {
+        "type": "video",
+        "icon": "file-video.svg"
+      },
+      ".mkv": {
+        "type": "video",
+        "icon": "file-video.svg"
+      },
+      ".avi": {
+        "type": "video",
+        "icon": "file-video.svg"
+      },
+      ".mp3": {
+        "type": "audio",
+        "icon": "file-audio.svg"
+      },
+      ".wav": {
+        "type": "audio",
+        "icon": "file-audio.svg"
+      },
+      ".ogg": {
+        "type": "audio",
+        "icon": "file-audio.svg"
+      }
+    }
+  }

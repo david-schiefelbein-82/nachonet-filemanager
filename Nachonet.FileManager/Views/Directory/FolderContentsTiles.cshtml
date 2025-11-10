@@ -1,0 +1,48 @@
+﻿@model Nachonet.FileManager.Models.FolderContentsViewModel
+@using static Nachonet.FileManager.Data.Helper;
+@{
+    Layout = null;
+}
+
+<div class="album py-2 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-2 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-2">
+            @foreach (var file in Model.Files)
+            {
+                <div class="col">
+                    <div class="card shadow-sm file-card" data-file-id="@EncodeAttr(file.Id)" data-file-parent="@EncodeAttr(file.Id.Parent)" data-file-size="@EncodeAttr(file.SizeText())" data-file-created="@EncodeAttr(file.CreatedText("l"))" data-file-modified="@EncodeAttr(file.ModifiedText("l"))" data-file-type="@file.FileType">
+                        <div class="text-center m-2">
+                            <div class="tiles-file-chk-div text-end"><input class="form-check-input file-chk" type="checkbox" value="@EncodeAttr(file.Id)"></div>
+                            @if (file.Type == FileViewModelType.Folder)
+                            {
+                                if (file.Accessible)
+                                {
+                                    <img src="~/images/lg-folder.svg" class="file-img tiles-img-file" />
+                                }
+                                else
+                                {
+                                    <img src="~/images/lg-folder-locked.svg" class="file-img tiles-img-file" />
+                                }
+                            }
+                            else
+                            {
+                                @if (!string.IsNullOrEmpty(file.FileIcon))
+                                {
+                                    <img src="~/images/@(file.FileIcon)" class="file-img tiles-img-file" />
+                                }
+                                else
+                                {
+                                    <img src="~/images/file.svg" class="file-img tiles-img-file" />
+                                }
+                            }
+                            <div class="card-body">
+                                <div class="file-label text-sm-center text-truncate">@file.Name</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

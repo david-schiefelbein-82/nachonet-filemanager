@@ -1,0 +1,172 @@
+
+.folder-link {
+    cursor: pointer;
+    color: blue;
+}
+    .folder-link:hover {
+        color: blue;
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
+.folder-sep {
+    margin: 0px 5px 0px 5px;
+}
+
+.file-card {
+    cursor: pointer;
+    background-color: #2B3035;
+    border-radius: 6px;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+    .file-card:hover {
+        background-color: #404040;
+        transition: 0.5s;
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+
+.tiles-file-chk-div {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-top: 0px;
+    padding-right: 5px;
+}
+
+.tiles-img-file {
+    cursor: pointer;
+    width: 60%;
+}
+
+    .tiles-img-file:hover {
+        cursor: pointer;
+        background-color: #404040;
+        transition: 0.7s;
+        width: 60%;
+    }
+
+.control-button {
+    /*
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    */
+}
+
+.control-btn-img {
+    vertical-align: -2px;
+}
+
+.form-control-warning {
+    border-color: red;
+    color: red;
+}
+
+.panel-tree {
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+.validation-msg {
+    color: red;
+    height: 30px;
+}
+
+.file-label {
+    cursor: pointer;
+    font-size: small;
+    color: #FFFFFF;
+}
+
+    .file-label:hover {
+        cursor: pointer;
+        text-decoration: underline;
+        color: rgb(110, 168, 254);
+    }
+
+.file-col-chk {
+}
+.file-list-chk {
+    margin-left: 12px;
+}
+.file-col-img {
+}
+
+.file-list-img {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+
+    .file-list-img:hover {
+        cursor: pointer;
+        background-color: blue;
+        transition: 0.7s;
+    }
+
+.file-list-label {
+}
+
+.file-list-modified {
+    font-size: small;
+}
+
+.file-list-size {
+    font-size: small;
+}
+
+.file-viewer {
+    height: 300px;
+    resize: none;
+    white-space: pre;
+    font-family: 'Lucida Console';
+}
+
+.body-noscrollbars {
+    overflow: hidden;
+}
+
+.panel-upload {
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    height: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+.upload-fname {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: x-small;
+    width: 150px;
+}
+
+#btn-upload-hide {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+}
+.file-upload-progress-col {
+}
+
+.file-upload-progress {
+    margin-top: 4px;
+    margin-top: 4px;
+    /*height: 2px;*/
+}
+
+.container-controls {
+    position: sticky;
+    top: 0px;
+    z-index: 10;
+}

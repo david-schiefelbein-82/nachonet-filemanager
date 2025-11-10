@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" href="~/images/folder.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @await RenderSectionAsync("Css", required: false)
+    <link rel="stylesheet" href="~/Schiefelbein.FileManager.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/jstree/dist/themes/default/style.min.css" />
+
+</head>
+<body data-bs-theme="dark">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 fm-navbar">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">File Manager</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Directory" asp-action="Index">Folders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+                        </li>
+                    </ul>
+                </div>
+
+                @if (User.Identity == null || !User.Identity.IsAuthenticated)
+                {
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            You are not logged in
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <span class="nav-link text-dark"><span class="nav-name">@User.Identity?.Name</span>
+                                @Html.ActionLink("Sign out", "Signout", "Login", new { info = "logged out" })
+                            </span>
+                        </li>
+                    </ul>
+                }
+            </div>
+        </nav>
+    </header>
+    @await RenderSectionAsync("FileManagerMenu", required: false)
+    <div class="container mx-0 mx-md-2 px-0 px-md-2">
+        <main role="main" class="pb-1">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - File Manager
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jstree/dist/jstree.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>-->
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

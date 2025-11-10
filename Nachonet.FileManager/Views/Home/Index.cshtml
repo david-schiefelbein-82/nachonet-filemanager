@@ -1,0 +1,143 @@
+﻿@model Nachonet.FileManager.Models.UserActionViewModel
+@using static Nachonet.FileManager.Data.Helper;
+@using Nachonet.FileManager.Configuration;
+@functions {
+    public bool ActiveDirectory
+    {
+        get => (Model.LoginType & WebServerLoginType.ActiveDirectory) == WebServerLoginType.ActiveDirectory;
+    }
+    public bool Oidc
+    {
+        get => (Model.LoginType & WebServerLoginType.Oidc) == WebServerLoginType.Oidc;
+    }
+    public bool LocalUser
+    {
+        get => (Model.LoginType & WebServerLoginType.LocalUser) == WebServerLoginType.LocalUser;
+    }
+}
+@{
+    ViewData["Title"] = "File Manager";
+}
+
+@section Css {
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/fm-dialog.css" asp-append-version="true" />
+}
+
+<div class="text-center">
+    <h1 class="display-4">File Manager</h1>
+</div>
+
+<div class="row">
+
+    <div class="login-method-top">
+    </div>
+    @if (ActiveDirectory || LocalUser)
+    {
+        <div class="card mx-auto" style="max-width: 400px;">
+            <div class="card-body">
+                <form action='@Url.Action("SigninAd", "Login")' method="post">
+                    <input type="hidden" id="input-page" name="page" value="@Model.Page" />
+                    <div class="mb-3">
+                        <label for="input-userid" class="form-label">User</label>
+                        <input type="text" class="form-control" id="input-userid" name="username" placeholder="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="input-password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="input-password" name="password" placeholder="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <button id="btn-login-ad" type="submit" class="btn btn-secondary control-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right control-btn-img" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z" />
+                                <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                            </svg>
+                            @Model.AdLoginText
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+
+
+    @if ((ActiveDirectory || LocalUser) && Oidc)
+    {
+        <div class="login-method-sep">
+            or
+        </div>
+    }
+
+    @if (Oidc)
+    {
+        <div class="text-center">
+            <button id="btn-login-oidc" type="button" class="btn btn-secondary control-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right control-btn-img" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z" />
+                    <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                </svg>
+                @Model.OidcLoginText
+            </button>
+        </div>
+    }
+
+    <div class="text-center">
+        <div class="sister-sites">
+    @foreach (var sisterSite in Model.SisterSites)
+    {
+            <a href="@sisterSite.Url">@sisterSite.Name</a>
+    }
+        </div>
+    </div>
+</div>
+
+<div id="dialog-error-view" class="dialog-error-view fm-dialog fm-dialog-hidden">
+    <div>
+        <div class="pb-4">@Model.ErrorMessage</div>
+        <div class="py2 text-end">
+            <button id="btn-error-view-hide" class="btn btn-secondary btn-sm">
+                Okay
+            </button>
+        </div>
+    </div>
+</div>
+
+@if (Model.InfoMessage != null)
+{
+    <div class="my-2 text-center">
+        <div class="toast fade show toast-login-msg" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
+                <strong class="me-auto">Information</strong>
+                <small>Just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                @Model.InfoMessage
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    <script src="~/js/fm-dialog.js" asp-append-version="true"></script>
+
+    <script>
+        var _dialogError;
+        
+        $(document).ready(function () {
+            var showDialog = @(Model.ErrorMessage == null ? "false" : "true");
+                _dialogError = fileManagerDialog($("#dialog-error-view"));
+            if (showDialog) {
+                _dialogError.show();
+            }
+
+            $("#btn-error-view-hide").on("click", function () {
+                _dialogError.hide();
+            });
+
+            $("#btn-login-oidc").on("click", function () {
+                window.location.href = '@Url.Action("Login", "Home", new { page = Model.Page })';
+            });
+        });
+    </script>
+}

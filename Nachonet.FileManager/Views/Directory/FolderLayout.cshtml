@@ -1,0 +1,39 @@
+﻿@model Nachonet.FileManager.Models.UserInfoViewModel
+@{
+    Layout = null;
+}
+<div class="btn-group btn-sm" role="group" aria-label="Basic radio toggle button group">
+    @if (Model == null || Model.Layout == FileManagerLayout.Tiles)
+    {
+        <input type="radio" class="btn-check" name="btnradio" id="btn-layout-tiles" autocomplete="off" checked>
+        <label class="btn btn-outline-primary btn-sm" for="btn-layout-tiles">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list control-btn-img" viewBox="0 0 16 16">
+  <rect style="fill:none;fill-opacity:1;stroke:currentColor;stroke-width:1;" width="4.1654048" height="3.2929609" x="2.8403745" y="3.849138" />
+  <rect style="fill:none;fill-opacity:1;stroke:currentColor;stroke-width:1;" width="4.1654048" height="3.2929609" x="8.9791384" y="8.8491383" />
+  <rect style="fill:none;fill-opacity:1;stroke:currentColor;stroke-width:1;" width="4.1654048" height="3.2929609" x="2.840138" y="8.8491383" />
+  <rect style="fill:none;fill-opacity:1;stroke:currentColor;stroke-width:1;" width="4.1654048" height="3.2929609" x="8.9786415" y="3.849138" />
+</svg></label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btn-layout-list" autocomplete="off">
+        <label class="btn btn-outline-primary btn-sm" for="btn-layout-list">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list control-btn-img" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+    </svg></label>
+    }
+    else
+    {
+        <input type="radio" class="btn-check" name="btnradio" id="btn-layout-tiles" autocomplete="off">
+        <label class="btn btn-outline-primary btn-sm" for="btn-layout-tiles">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list control-btn-img" viewBox="0 0 16 16">
+  <rect style="fill:none;fill-opacity:1;stroke:currentColor;stroke-width:1;" width="4.1654048" height="3.2929609" x="2.8403745" y="3.849138" />
+  <rect style="fill:none;fill-opacity:1;stroke:currentColor;stroke-width:1;" width="4.1654048" height="3.2929609" x="8.9791384" y="8.8491383" />
+  <rect style="fill:none;fill-opacity:1;stroke:currentColor;stroke-width:1;" width="4.1654048" height="3.2929609" x="2.840138" y="8.8491383" />
+  <rect style="fill:none;fill-opacity:1;stroke:currentColor;stroke-width:1;" width="4.1654048" height="3.2929609" x="8.9786415" y="3.849138" />
+</svg></label>
+        <input type="radio" class="btn-check" name="btnradio" id="btn-layout-list" autocomplete="off" checked>
+        <label class="btn btn-outline-primary btn-sm" for="btn-layout-list">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list control-btn-img" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+    </svg></label>
+    }
+</div>

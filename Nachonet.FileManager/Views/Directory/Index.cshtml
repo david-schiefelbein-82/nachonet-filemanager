@@ -1,0 +1,373 @@
+﻿@model Nachonet.FileManager.Models.UserInfoViewModel
+@{
+    ViewData["Title"] = "File Manager";
+}
+
+@section Css {
+    <link rel="stylesheet" href="~/css/folders.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/dialog-text.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/dialog-image.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/dialog-audio.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/dialog-video.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/dialog-paste.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/fm-dialog.css" asp-append-version="true" />
+}
+
+
+<div id="liveAlerts" class="live-alerts"></div>
+
+<div id="dialog-text-view" class="dialog-text-view fm-dialog fm-dialog-hidden">
+    <div id="text-editor" class="text-editor">
+    </div>
+    <div class="text-editor-buttons">
+        <span id="label-text-read-only" class="label-text-read-only">read only</span>
+        <button id="btn-image-view-download" type="button" class="btn btn-link btn-download" disabled="@(!Model.HasFileDownloaderRole)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download control-btn-img" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+            </svg>
+        </button>
+        <button id="btn-text-edit-hide" class="btn btn-secondary">
+            Cancel
+        </button>
+        <button id="btn-text-edit-save" type="button" class="btn btn-primary">
+            Save
+        </button>
+    </div>
+</div>
+<div id="dialog-image-view" class="dialog-image-view fm-dialog fm-dialog-hidden">
+    <image id="image-viewer" src="" class="image-view">
+    </image>
+    <div class="image-view-buttons">
+        <button id="btn-image-view-download" type="button" class="btn btn-link btn-download" disabled="@(!Model.HasFileDownloaderRole)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download control-btn-img" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+            </svg>
+        </button>
+        <button id="btn-image-view-hide" class="btn btn-secondary">
+            Okay
+        </button>
+    </div>
+</div>
+<div id="dialog-audio-view" class="dialog-audio-view fm-dialog fm-dialog-hidden">
+    <audio id="audio-player" class="audio-player" controls>
+        Your browser does not support the audio tag.
+    </audio>
+    <div class="audio-view-buttons">
+        <button id="btn-audio-view-download" type="button" class="btn btn-link btn-download" disabled="@(!Model.HasFileDownloaderRole)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download control-btn-img" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+            </svg>
+        </button>
+        <button id="btn-audio-view-hide" class="btn btn-secondary">
+            Okay
+        </button>
+    </div>
+</div>
+<div id="dialog-video-view" class="dialog-video-view fm-dialog fm-dialog-hidden">
+    <video id="video-player" class="video-player" controls>
+        Your browser does not support the video tag.
+    </video>
+    <div class="video-view-buttons">
+        <button id="btn-video-view-hide" class="btn btn-secondary">
+            Okay
+        </button>
+    </div>
+</div>
+
+<div id="panel-upload" class="panel-upload fm-dialog-top">
+    <div class="card mx-auto" style="width: 380px;">
+        <div class="card-body">
+            <input type="file" id="file-input" class="form-control" multiple />
+            <div id="panel-upload-files"></div>
+        </div>
+    </div>
+
+
+    <button id="btn-upload-hide" class="btn btn-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up control-btn-img" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z" />
+        </svg>
+    </button>
+</div>
+
+<div id="panel-tree" class="panel-tree fm-dialog-left">
+    <button id="btn-close-panel-tree" type="button" class="btn btn-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-left control-btn-img" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z" />
+        </svg>
+    </button>
+    <div id="tree-folders">
+    </div>
+</div>
+
+<div class="container-controls">
+    @{
+        await Html.RenderPartialAsync("Controls", Model);
+    }
+</div>
+
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col py-3">
+            <div class="row py-1">
+                <div class="col">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button id="btn-show-panel-tree" type="button" class="btn btn-sm btn-outline-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-nested control-btn-img" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4.5 11.5A.5.5 0 0 1 5 11h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 1 3h10a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5z" />
+                            </svg>
+                        </button>
+                        <button id="btn-select-none" type="button" class="btn btn-sm btn-outline-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-square control-btn-img" viewBox="0 0 16 16">
+                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                            </svg>
+                        </button>
+                        <button id="btn-select-all" type="button" class="btn btn-sm btn-outline-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-square control-btn-img" viewBox="0 0 16 16">
+                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div id="folder-layout" class="col-auto align-items-right">
+                    @{
+                        await Html.RenderPartialAsync("FolderLayout", Model);
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div id="folder-path" class="col"></div>
+            </div>
+            <div id="folder-items" class="mx-0 mx-md-0"></div>
+        </div>
+    </div>
+</div>
+
+<!-- modal-fileinfo -->
+<div class="modal fade" id="modal-fileinfo" tabindex="-1" role="dialog" aria-labelledby="modal-fileinfo-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-fileinfo-title">File Info</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form role="form" action='#' method="post">
+                    <input type="hidden" class="form-control" id="fileinfo-id" readonly />
+                    <input type="hidden" class="form-control" id="fileinfo-type" readonly />
+                    <div class="form-group row">
+                        <label for="fileinfo-name" class="col-sm-2 col-form-label my-2">Name</label>
+                        <div class="col-sm-10">
+                            <input id="fileinfo-name" type="text" class="form-control my-2" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fileinfo-created" class="col-sm-2 col-form-label my-2">Created</label>
+                        <div class="col-sm-10">
+                            <input id="fileinfo-created" type="text" class="form-control my-2" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fileinfo-modified" class="col-sm-2 col-form-label my-2">Modified</label>
+                        <div class="col-sm-10">
+                            <input id="fileinfo-modified" type="text" class="form-control my-2" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fileinfo-size" class="col-sm-2 col-form-label my-2">Size</label>
+                        <div class="col-sm-10">
+                            <input id="fileinfo-size" type="text" class="form-control my-2" readonly />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- toggle the fileViewer dialog -->
+                        <button id="btn-fileinfo-view" type="button" class="btn btn-link" disabled="@(!Model.HasFileReaderRole)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye control-btn-img" viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                            </svg>
+                        </button>
+                        <button id="btn-fileinfo-download" type="button" class="btn btn-link btn-download" disabled="@(!Model.HasFileDownloaderRole)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download control-btn-img" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                            </svg>
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal-delete -->
+<div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="modal-delete-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-delete-title">Delete Confirmation</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="delete-confirmation-prompt" class="form-group row py-4">
+                    Are you sure you want to delete these #count items?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="btn-delete-confirm" type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal-paste -->
+<div class="modal fade" id="modal-paste" tabindex="-1" role="dialog" aria-labelledby="modal-paste-title" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h5 id="modal-paste-title" class="modal-title">Copying Files</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-paste-message"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal-rename -->
+<div class="modal fade" id="modal-rename" tabindex="-1" role="dialog" aria-labelledby="modal-rename-title" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="modal-rename-title" class="modal-title">Rename File</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-rename">
+                    <input type="hidden" class="form-control" id="edit-id" readonly />
+                    <div class="form-group row">
+                        <label for="edit-name" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit-name" placeholder="name" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">&nbsp;</label>
+                        <div class="col-sm-10">
+                            <div id="edit-name-validation" class="validation-msg" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-cancel-rename" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button id="btn-submit-rename" type="button" class="btn btn-primary" onclick='commitRenameSelectedFile()'>Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/ace/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="~/js/fm-logger.js" asp-append-version="true"></script>
+    <script src="~/js/alerts.js" asp-append-version="true"></script>
+    <script src="~/js/file-editor.js" asp-append-version="true"></script>
+    <script src="~/js/file-path.js" asp-append-version="true"></script>
+    <script src="~/js/FileFolder.js" asp-append-version="true"></script>
+    <script src="~/js/fm-dialog.js" asp-append-version="true"></script>
+    <script src="~/js/file-upload.js" asp-append-version="true"></script>
+    <script src="~/js/upload-panel.js" asp-append-version="true"></script>
+
+    <script>
+        $(function () {
+            $('#tree-folders').jstree({
+                'core': {
+                    'themes': { "stripes": false, "dots": false },
+                    'data': {
+                        'url': '@Url.Action("Folders", "Directory")',
+                        'data': function (node) {
+                            return { 'id': node.id };
+                        }
+                    }
+                }
+            });
+        });
+
+        var logger = createLogger(@(Model.ClientDebugging ? "true" : "false"))
+        initFileFolder(logger, {
+            "get-folder-contents": '@Url.Action("FolderContents", "Directory")',
+            'cut-files': '@Url.Action("Cut", "Directory")',
+            "copy-files": '@Url.Action("Copy", "Directory")',
+            "paste-files": '@Url.Action("Paste", "Directory")',
+            "paste-results": '@Url.Action("PasteResults", "Directory")',
+            "delete-files": '@Url.Action("Delete", "Directory")',
+            "rename-file": '@Url.Action("Rename", "Directory")',
+            "new-folder": '@Url.Action("NewFolder", "Directory")',
+            "download-files": '@Url.Action("Download", "Directory")',
+            "file-info": '@Url.Action("Info", "File")',
+            "file-stream": '@Url.Action("Stream", "File")',
+        });
+
+        initFileUpload({
+            "upload-chunk": '@Url.Action("UploadChunk", "Directory")',
+            "start-file-upload": '@Url.Action("StartUploadFile", "Directory")',
+            "finish-file-upload": '@Url.Action("FinishUploadFile", "Directory")'
+        }, @Model.UploadChunkSize);
+
+
+        var _editor = ace.edit("text-editor");
+        _editor.setTheme("ace/theme/textmate");
+        var _textEditor = createTextEditor(_editor, {
+            'file-contents': '@Url.Action("Contents", "File")'
+        });
+
+        $(document).ready(function () {
+            onPageLoaded(_textEditor);
+
+
+            $("#file-input").change(function (ev) {
+                var files = ev.target.files;
+                if (files.length > 0) {
+                    var upl = queueFileUpload(getCurrentFolderId(), files);
+                    upl.then((result) => {
+                        ev.target.value = null;
+                        refreshFolder();
+                    });
+                }
+            });
+            $("#file-input").on("uploading", function (ev, data) {
+                var filename = data.filename;
+                var perc = Math.floor(data.uploaded / data.size * 100);
+                setFileUploadProgress(filename, perc);
+            });
+
+            $("#file-input").on("uploaded", function (ev, data) {
+                var filename = data.filename;
+                setFileUploadProgressComplete(filename);
+            });
+            $("#file-input").on("uploadError", function (ev, data) {
+                var filename = data.filename;
+                setFileUploadProgressError(filename);
+            });
+            $("#btn-upload-show").on("click", function () {
+                _dialogUpload.show();
+            });
+            $("#btn-upload-hide").on("click", function () {
+                _dialogUpload.hide();
+            });
+        });
+    </script>
+}

@@ -1,0 +1,113 @@
+﻿@model Nachonet.FileManager.Models.AuthEntityViewModelWithError
+
+<h4>Create a new User or Group</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        &nbsp;
+    </div>
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group my-2">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" required="true" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="Label" class="control-label"></label>
+                <input asp-for="Label" class="form-control" required="true" />
+                <span asp-validation-for="Label" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="Type" class="control-label"></label>
+                @Html.DropDownListFor(model => model.Type, new SelectList(Enum.GetNames(typeof(Nachonet.Common.Web.Configuration.AuthEntityType))), new { @class = "form-select" })
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" type="password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FileReader" /> @Html.DisplayNameFor(model => model.FileReader)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FileWriter" /> @Html.DisplayNameFor(model => model.FileWriter)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FileDownloader" /> @Html.DisplayNameFor(model => model.FileDownloader)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FileUploader" /> @Html.DisplayNameFor(model => model.FileUploader)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Admin" /> @Html.DisplayNameFor(model => model.Admin)
+                </label>
+            </div>
+            <div>
+                <input type="button" value="Cancel" class="btn btn-secondary my-2" onclick='location.href = "@Url.Action("Index", "Admin")"' />
+                <input type="submit" value="Create" class="btn btn-primary my-2" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        &nbsp;
+    </div>
+</div>
+
+@if (Model != null && Model.ErrorMessage != null)
+{
+    <div class="error-message">
+        <div class="my-2 text-center">
+            <div class="toast fade show toast-login-msg" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#FF7a7a"></rect></svg>
+                    <strong class="me-auto">Edit Error</strong>
+                    <small>Just now</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    @Model.ErrorMessage
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts
+{
+    <script>
+
+        function updatePasswordField() {
+            var typeVal = $("#Type").val();
+
+            if (typeVal == "AppLocalUser") {
+                $("#Password").prop('disabled', false);
+            } else {
+                $("#Password").val("");
+                $("#Password").prop('disabled', true);
+            }
+        }
+
+        $(document).ready(function () {
+            // update on load
+            updatePasswordField();
+
+            $("#Type").on("change", function () {
+                // update when Type field has changed
+                updatePasswordField();
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,15 @@
+{
+  "Users": [
+    {
+      "username": "a",
+      "password": "31373DA3AA3975573065D8BB547EA36307B1BA0FEE258967FA2AC73C1827797C01B778CEAB7A4A567F18850C4C2A47602B9B5B2CFFD820D425BC8A176A85C9AD",
+      "password-salt": "C4ADFDED86F476878C58F1670E134672444A1ABD443C45CAAC54036A9989B81034468A58B69C2B561CD8AEEA5DD5E6E2347A7FEF3C1717C23BD3802138C17F97",
+      "email-address": "",
+      "given-name": "",
+      "surname": "",
+      "preferred-name": "a",
+      "groups": []
+    }
+  ],
+  "Groups": []
+}

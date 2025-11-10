@@ -1,0 +1,35 @@
+
+
+.dialog-image-view {
+    position: fixed;
+    left: 5%;
+    top: 5%;
+    right: 5%;
+    max-width: 400px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    z-index: 100;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.image-view {
+    position: relative;
+    left: 5%;
+    width: 90%;
+    top: 5%;
+    max-height: 500px;
+    object-fit: scale-down;
+    background: black;
+    border: 1px solid gray;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.image-view-buttons {
+    position: relative;
+    top: 5%;
+    right: 5%;
+    margin-top: 10px;
+    text-align: right;
+}

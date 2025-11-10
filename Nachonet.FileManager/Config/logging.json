@@ -1,0 +1,25 @@
+{
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Information",
+      "Override": {
+        "Microsoft.AspNetCore": "Warning",
+        "Schiefelbein.FileManager": "Verbose"
+      }
+    },
+    "Using": [ "Serilog.Sinks.File" ],
+    "Enrich": [ "ThreadID" ],
+    "WriteTo": [
+      {
+        "Name": "File",
+        "Args": {
+          "path": "log/filemanager.log",
+          "outputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u5}] <TH {ThreadID}> <{SourceContext:l}> {Message:lj}{NewLine}{Exception}",
+          "rollingInterval": "Day",
+          "retainedFileCountLimit": 2,
+          "archiveFileCountLimit": 10
+        }
+      }
+    ]
+  }
+}

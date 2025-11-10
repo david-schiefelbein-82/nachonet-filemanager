@@ -1,0 +1,55 @@
+﻿@model Nachonet.FileManager.Models.FolderContentsViewModel
+@using static Nachonet.FileManager.Data.Helper;
+@{
+    Layout = null;
+}
+
+<div class="album py-1 bg-body-tertiary">
+    <div class="container mr-0 mr-md-2 p-0 p-md-2">
+        <div class="row row-cols-1 g-0">
+            @foreach (var file in Model.Files)
+            {
+                <div class="row file-card border-bottom px-0" data-file-id="@EncodeAttr(file.Id)" data-file-parent="@EncodeAttr(file.Id.Parent)" data-file-size="@EncodeAttr(file.SizeText())" data-file-created="@EncodeAttr(file.CreatedText("l"))" data-file-modified="@EncodeAttr(file.ModifiedText("l"))" data-file-type="@file.FileType">
+                    <div class="col col-1">
+                            <input class="form-check-input file-chk file-list-chk" type="checkbox" value="@EncodeAttr(file.Id)">
+                    </div>
+                    <div class="col col-1">
+                        @if (file.Type == FileViewModelType.Folder)
+                        {
+                            if (file.Accessible)
+                            {
+                                <img src="~/images/lg-folder.svg" class="file-img file-list-img" />
+                            }
+                            else
+                            {
+                                <img src="~/images/lg-folder-locked.svg" class="file-img file-list-img" />
+                            }
+                        }
+                        else
+                        {
+                            @if (!string.IsNullOrEmpty(file.FileIcon))
+                            {
+                                <img src="~/images/@(file.FileIcon)" class="file-img file-list-img" />
+                            }
+                            else
+                            {
+                                <img src="~/images/file.svg" class="file-img file-list-img" />
+                            }
+                        }
+                    </div>
+                    <div class="col col-10">
+                        <span class="file-label file-list-label">@file.Name</span>
+                    </div>
+                    <div class="col col-2"></div>
+                    <div class="col col-5 text-end">
+                        <span class="text-muted file-list-modified">@file.ModifiedText("s")</span>
+                    </div>
+                    <div class="col col-5 text-end file-list-size">
+                        <span class="text-muted">@file.SizeText()</span>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

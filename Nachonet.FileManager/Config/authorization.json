@@ -1,0 +1,53 @@
+{
+  "users-and-groups": [
+    {
+      "id": "david.schiefelbein@gmail.com",
+      "label": "David Schiefelbein",
+      "type": "OidcUser",
+      "roles": [
+        "file-reader",
+        "file-writer",
+        "file-downloader",
+        "file-uploader",
+        "admin"
+      ]
+    },
+    {
+      "id": "david.schiefelbein.2@gmail.com",
+      "label": "David Schiefelbein2",
+      "type": "ActiveDirectoryUser",
+      "roles": [
+        "file-reader"
+      ]
+    },
+    {
+      "id": "dave",
+      "label": "Dave Schiefelbein",
+      "type": "ActiveDirectoryUser",
+      "roles": [
+        "file-reader",
+        "file-writer",
+        "file-downloader",
+        "file-uploader",
+        "admin"
+      ]
+    },
+    {
+      "id": "Domain Users",
+      "label": "Domain Users",
+      "type": "ActiveDirectoryGroup",
+      "roles": [
+        "file-reader",
+        "file-downloader",
+        "file-uploader",
+        "file-writer"
+      ]
+    },
+    {
+      "id": "a",
+      "label": "a",
+      "type": "AppLocalUser",
+      "roles": []
+    }
+  ]
+}

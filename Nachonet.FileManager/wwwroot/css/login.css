@@ -1,0 +1,21 @@
+.login-method-sep {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: large;
+    color: lightgray;
+}
+
+#editor {
+    width: 600px;
+    height: 400px;
+    margin-top: 20px;
+    /*background-color: beige;*/
+}
+
+.toast-login-msg {
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%, 0px);
+    z-index: 200;
+}

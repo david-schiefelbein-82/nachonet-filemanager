@@ -1,0 +1,36 @@
+
+
+.dialog-text-view {
+    position: fixed;
+    left: 5%;
+    top: 5%;
+    right: 5%;
+    bottom: 5%;
+    z-index: 100;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid RGBA(255, 255, 255, 0.25);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#btn-image-view-download {
+    color: black;
+}
+
+.text-editor {
+    position: relative;
+    left: 2%;
+    width: 96%;
+    top: 2%;
+    height: calc(96% - 60px);
+    border: 1px solid gray;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    /*background-color: beige;*/
+}
+.text-editor-buttons {
+    position: relative;
+    top: 2%;
+    right: 2%;
+    margin-top: 10px;
+    text-align: right;
+}

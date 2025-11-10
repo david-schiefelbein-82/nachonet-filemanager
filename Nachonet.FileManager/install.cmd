@@ -1,0 +1,1 @@
+﻿sc create Schiefelbein.Utilities.SystemManager binPath= C:\Programs\Schiefelbein.Utilities.SystemManager\Schiefelbein.Utilities.SystemManager.exe start= delayed-auto

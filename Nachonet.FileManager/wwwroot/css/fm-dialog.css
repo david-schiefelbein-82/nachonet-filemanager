@@ -1,0 +1,96 @@
+/* the grayed out background */
+.fm-dialog-background {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-color: #808080E0;
+    z-index: 10;
+}
+
+.fm-menu {
+    background: white;
+    margin-right: 10px;
+    padding-right: 10px;
+}
+
+.fm-dialog-left {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    transform: translateX(-100%);
+    z-index: 100;
+}
+
+.fm-dialog {
+
+}
+
+.fm-dialog-hidden {
+    display: none;
+}
+
+.fm-dialog-shown {
+    display: block;
+    transition: display 5s;
+}
+
+.fm-dialog-top {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    transform: translateY(-100%);
+    z-index: 100;
+}
+
+.fm-dialog-top-hidden {
+    transform: translateY(-100%);
+    transition: transform 0.5s;
+}
+
+.fm-dialog-top-shown {
+    transform: translateY(0%);
+    transition: transform 0.5s;
+}
+
+.slidermenu-bottom {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    transform: translateY(100%);
+    z-index: 100;
+}
+
+.fm-dialog-left-hidden {
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+}
+
+.fm-dialog-left-shown {
+    transform: translateX(0%);
+    transition: transform 0.5s;
+}
+
+.fm-dialog-bottom-hidden {
+    transform: translateY(100%);
+    transition: transform 0.5s;
+}
+
+.fm-dialog-bottom-shown {
+    transform: translateY(0%);
+    transition: transform 0.5s;
+}
+
+.fm-dialog-right-hidden {
+    transform: translateX(100%);
+    transition: transform 0.5s;
+}
+
+.fm-dialog-right-shown {
+    transform: translateX(0%);
+    transition: transform 0.5s;
+}

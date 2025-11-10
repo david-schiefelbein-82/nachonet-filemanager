@@ -1,0 +1,54 @@
+{
+  "client-debugging": true,
+  "use-https-redirection": true,
+  "session-idle-timeout": "01:00:00",
+  "login-method": "Oidc, ActiveDirectory",
+  "oidc-login-text": "login with Google",
+  "ad-login-text": "login",
+  "path-base": "",
+  "jwt-token-authentication": {
+    "token-key": "",
+    "web-site-domain": "https://filemanager.com/",
+    "user-name-claim": "email"
+  },
+  "sister-sites": [
+    {
+      "name": "system manager",
+      "url": "https://${host}/sm"
+    },
+    {
+      "name": "file manager",
+      "url": "https://${host}/fm"
+    }
+  ],
+  "active-directory": {
+    "domain": "nachonet"
+  },
+  "oidc": {
+    "client-id": "452689228343-32900gt2vl70f9vl58ep3pknvelsct6n.apps.googleusercontent.com",
+    "client-secret": "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",
+    "redirect-uri": "https://${host}/signin-oidc",
+    "token-endpoint": "https://oauth2.googleapis.com/token",
+    "issuer": "https://accounts.google.com",
+    "jwks-uri": "https://www.googleapis.com/oauth2/v3/certs",
+    "revocation-endpoint": "",
+    "authorization-endpoint": "https://accounts.google.com/o/oauth2/auth",
+    "scope": "openid+profile+email",
+    "response-type": "code",
+    "response-mode": "get",
+    "user-name-claim": "email"
+  },
+  "oidc-azure": {
+    "client-id": "6fead83e-78bf-454d-83fd-97bf4b921191",
+    "client-secret": "",
+    "redirect-uri": "https://localhost:7087/signin-oidc",
+    "token-endpoint": "https://login.microsoftonline.com/c35bc644-9a6d-4d76-a6b8-8a8bb3f08fd3/oauth2/v2.0/token",
+    "issuer": "https://login.microsoftonline.com/c35bc644-9a6d-4d76-a6b8-8a8bb3f08fd3/v2.0",
+    "jwks-uri": "https://login.microsoftonline.com/common/discovery/keys",
+    "revocation-endpoint": "",
+    "authorization-endpoint": "https://login.microsoftonline.com/c35bc644-9a6d-4d76-a6b8-8a8bb3f08fd3/oauth2/v2.0/authorize",
+    "scope": "openid+profile",
+    "response-type": "id_token",
+    "response-mode": "post"
+  }
+}
