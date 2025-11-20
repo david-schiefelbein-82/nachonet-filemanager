@@ -10,24 +10,16 @@ using System.Web;
 namespace Nachonet.FileManager.Controllers
 {
     [AllowAnonymous]
-    public partial class HomeController : Controller
+    public partial class HomeController(ILogger<HomeController> logger, IConfigManager configManager, IOidcClient oidcClient) : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IOidcClient _oidcClient;
-        private readonly IConfigManager _configManager;
-
-        public HomeController(ILogger<HomeController> logger, IConfigManager configManager, IOidcClient oidcClient)
-        {
-            _logger = logger;
-            _configManager = configManager;
-            _oidcClient = oidcClient;
-
-        }
+        private readonly ILogger<HomeController> _logger = logger;
+        private readonly IOidcClient _oidcClient = oidcClient;
+        private readonly IConfigManager _configManager = configManager;
 
         [HttpGet("/")]
         public IActionResult Index(string? page, string? error, string? info)
         {
-            var host = Request.Host.Value;
+            var host = Request.Host.Value ?? throw new Exception("Host is required");
             HttpContext.Session.SetString("FileManager-SID", HttpContext.Session.Id);
             _logger.LogInformation("GET {host}/ sessionid:{sid}", host, HttpContext.Session.Id);
 
@@ -40,7 +32,7 @@ namespace Nachonet.FileManager.Controllers
 
         public IActionResult Login(string? page)
         {
-            var host = Request.Host.Value;
+            var host = Request.Host.Value ?? throw new Exception("Host is required");
             var state = "page=" + HttpUtility.UrlEncode(page) + "&sessionid=" + HttpContext.Session.Id;
             var url = _oidcClient.GetAuthenticationUrl(host, state);
             _logger.LogInformation("/Login page={page}, sessionid={sid} redirecting to {url}", page, HttpContext.Session.Id, url);

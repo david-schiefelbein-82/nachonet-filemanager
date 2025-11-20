@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.Build.Execution;
-using Microsoft.CodeAnalysis.Elfie.Diagnostics;
-using Nachonet.Common.Web.AppLocal.Config;
+﻿using Nachonet.Common.Web.AppLocal.Config;
 using Nachonet.FileManager.Configuration;
 
 namespace Nachonet.FileManager.Data

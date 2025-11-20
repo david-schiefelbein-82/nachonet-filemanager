@@ -1,19 +1,18 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace Nachonet.FileManager.Data
 {
-    public class FileDownload
+    public class FileDownload(string[] fileIds, string fileName, byte[] data)
     {
-        public string[] FileIds { get; }
+        public string[] FileIds { get; } = fileIds;
 
-        public DateTime Started { get; }
+        public DateTime Started { get; } = DateTime.Now;
 
-        public Int64 Updated { get; set; }
+        public Int64 Updated { get; set; } = Environment.TickCount64;
 
-        public string FileName { get; }
+        public string FileName { get; } = fileName;
 
-        public byte[] Data { get; }
+        public byte[] Data { get; } = data;
 
         public long FileSize { get => Data.LongLength; }
 
@@ -41,15 +40,6 @@ namespace Nachonet.FileManager.Data
         public void Refresh()
         {
             Updated = Environment.TickCount64;
-        }
-
-        public FileDownload(string[] fileIds, string fileName, byte[] data)
-        {
-            FileIds = fileIds;
-            FileName = fileName;
-            Started = DateTime.Now;
-            Updated = Environment.TickCount64;
-            Data = data;
         }
     }
 }

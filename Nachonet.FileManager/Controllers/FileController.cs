@@ -1,20 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Net;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.CodeAnalysis;
-using NuGet.Packaging.Core;
-using Nachonet.FileManager.Configuration;
 using Nachonet.FileManager.Data;
 using Nachonet.FileManager.Errors;
 using Nachonet.FileManager.Models;
-using Serilog.Sinks.File;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Text.Json;
-using System.Text.Json.Nodes;
 
 namespace Nachonet.FileManager.Controllers
 {

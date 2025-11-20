@@ -15,11 +15,13 @@ namespace Nachonet.FileManager.Test
         private const StringComparison Cmp = StringComparison.CurrentCultureIgnoreCase;
 
         [TestMethod]
-        [ExpectedException(typeof(FileManagerIoException))]
         public void TestInvalidRelativePath()
         {
             RootFolders rootFolders = new(new Dictionary<string, string>() { [RootName] = RootDir });
-            FolderPath.ToRelativePath(new DirectoryInfo("C:\\invalid"), rootFolders, Cmp);
+            Assert.Throws<FileManagerIoException>(delegate ()
+            {
+                FolderPath.ToRelativePath(new DirectoryInfo("C:\\invalid"), rootFolders, Cmp);
+            });
         }
 
         [TestMethod]

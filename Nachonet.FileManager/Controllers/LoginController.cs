@@ -297,7 +297,7 @@ namespace Nachonet.FileManager.Controllers
             // if we have a code, then we call a rest api to get the tokens from it
             try
             {
-                var host = Request.Host.Value;
+                var host = Request.Host.Value ?? throw new Exception("Host is required");
                 var codeToken = await client.GetTokenAsync(host, code, cancellationToken);
                 _ = OidcJwtToken.TryParse(codeToken.IdTokenBase64 ?? string.Empty, out OidcJwtToken? idToken);
 
