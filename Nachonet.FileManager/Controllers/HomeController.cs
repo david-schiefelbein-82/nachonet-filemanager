@@ -19,7 +19,8 @@ namespace Nachonet.FileManager.Controllers
         [HttpGet("/")]
         public IActionResult Index(string? page, string? error, string? info)
         {
-            var host = Request.Host.Value ?? throw new Exception("Host is required");
+            var host = Request.Host.Value ?? string.Empty;
+            _logger.LogDebug("/ page:{page}, error: {error}, info: {info}, host: {host}", page, error, info, host);
             HttpContext.Session.SetString("FileManager-SID", HttpContext.Session.Id);
             _logger.LogInformation("GET {host}/ sessionid:{sid}", host, HttpContext.Session.Id);
 
@@ -32,7 +33,7 @@ namespace Nachonet.FileManager.Controllers
 
         public IActionResult Login(string? page)
         {
-            var host = Request.Host.Value ?? throw new Exception("Host is required");
+            var host = Request.Host.Value ?? string.Empty;
             var state = "page=" + HttpUtility.UrlEncode(page) + "&sessionid=" + HttpContext.Session.Id;
             var url = _oidcClient.GetAuthenticationUrl(host, state);
             _logger.LogInformation("/Login page={page}, sessionid={sid} redirecting to {url}", page, HttpContext.Session.Id, url);
