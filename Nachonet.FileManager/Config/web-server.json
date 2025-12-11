@@ -2,7 +2,7 @@
   "client-debugging": true,
   "use-https-redirection": true,
   "session-idle-timeout": "01:00:00",
-  "login-method": "Oidc, ActiveDirectory",
+  "login-method": "Oidc, LocalUser",
   "oidc-login-text": "login with Google",
   "ad-login-text": "login",
   "path-base": "",

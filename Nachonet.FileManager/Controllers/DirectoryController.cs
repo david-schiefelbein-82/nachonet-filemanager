@@ -309,12 +309,13 @@ namespace Nachonet.FileManager.Controllers
         private const string FolderIdKey = "Folder-Id";
 
         [HttpGet("[controller]/folder-contents")]
-        public IActionResult FolderContents(string? folderId, string? layout)
+        public IActionResult FolderContents(string? folderId, string? layout, [FromQuery(Name = "sort")] string? sort)
         {
             if (string.IsNullOrWhiteSpace(folderId) || folderId == "#")
             {
                 folderId = GetSessionFolderId();
-            } else
+            }
+            else
             {
                 SetSessionFolderId(folderId);
             }
@@ -330,9 +331,14 @@ namespace Nachonet.FileManager.Controllers
                 dirLayout = GetFolderManagerLayout();
             }
 
+            if (!Enum.TryParse(sort, true, out FilesSortOrder sortOrder))
+            {
+                sortOrder = FilesSortOrder.NameAsc;
+            }
+
             _logger.LogInformation("FolderContents: {id}, {layout}", folderId, dirLayout);
             var vm = new FolderContentsViewModel(folderId, folderId);
-            vm.Files.AddRange(_folderManager.GetFiles(folderId));
+            vm.Files.AddRange(_folderManager.GetFiles(folderId, sortOrder));
             return dirLayout switch
             {
                 FileManagerLayout.List => View("FolderContentsList", vm),

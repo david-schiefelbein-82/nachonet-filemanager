@@ -23,6 +23,7 @@ var _dialogTextView;
 var _dialogImageView;
 var _dialogAudioView;
 var _dialogVideoView;
+var _sortBy = "NameAsc";
 
 function initFileFolder(logger, urlInfo) {
     _logger = logger;
@@ -92,6 +93,18 @@ function onPageLoaded(textEditor) {
     });
     $("#btn-select-all").on("click", function () {
         selectAllFiles();
+    });
+    $("#btn-sort-name-asc").on("click", function () {
+        sortFilesBy("NameAsc");
+    });
+    $("#btn-sort-name-desc").on("click", function () {
+        sortFilesBy("NameDesc");
+    });
+    $("#btn-sort-size-asc").on("click", function () {
+        sortFilesBy("SizeAsc");
+    });
+    $("#btn-sort-size-desc").on("click", function () {
+        sortFilesBy("SizeDesc");
     });
     $("#btn-download").on("click", function () {
         downloadSelectedFiles();
@@ -532,6 +545,12 @@ function selectAllFiles() {
     _selectedFileId = getLastSelectedFileId();
 }
 
+// select all files by checking the checkbox in each one
+function sortFilesBy(sortBy) {
+    _sortBy = sortBy;
+    loadFolderAsync(_currentFolder, "rename complete");
+}
+
 function deleteSelectedFiles() {
     var items = getSelectedFileIds();
 
@@ -776,7 +795,7 @@ function loadFolderAsync(folderId, cause, layout) {
     $.ajax({
         type: "GET",
         url: _urlGetFolderContents,
-        data: { "folderId": folderId, "select": false, "layout": layout },
+        data: { "folderId": folderId, "select": false, "layout": layout, "sort": _sortBy },
         dataType: "html"
     }).then(
         function (data, textStatus, jqXHR) {

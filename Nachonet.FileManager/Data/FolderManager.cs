@@ -1,9 +1,8 @@
-﻿using Nachonet.FileManager.Configuration;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Nodes;
+using Nachonet.FileManager.Configuration;
 using Nachonet.FileManager.Errors;
 using Nachonet.FileManager.Models;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Text.Json.Nodes;
 
 namespace Nachonet.FileManager.Data
 {
@@ -78,7 +77,7 @@ namespace Nachonet.FileManager.Data
             return ToJson([.. list]);
         }
 
-        public IEnumerable<FileViewModel> GetFiles(string id)
+        public IEnumerable<FileViewModel> GetFiles(string id, FilesSortOrder sortOrder)
         {
             var path = new FolderPath(id, _comparison);
             if (path.FileType != FileViewModelType.Folder)
@@ -86,7 +85,7 @@ namespace Nachonet.FileManager.Data
                 throw new FileManagerIoException("path " + id + " is not a directory");
             }
 
-            var list = path.GetFiles(_configManager, _rootFolders, true);
+            var list = path.GetFiles(_configManager, _rootFolders, sortOrder, true);
             return list;
         }
 

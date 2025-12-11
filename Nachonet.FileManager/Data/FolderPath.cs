@@ -1,10 +1,19 @@
-﻿using Nachonet.FileManager.Configuration;
+﻿using System;
+using System.Security.AccessControl;
+using Nachonet.FileManager.Configuration;
 using Nachonet.FileManager.Errors;
 using Nachonet.FileManager.Models;
-using System.Security.AccessControl;
 
 namespace Nachonet.FileManager.Data
 {
+    public enum FilesSortOrder
+    {
+        NameAsc,
+        NameDesc,
+        SizeAsc,
+        SizeDesc,
+    }
+
     public class FolderPath : IEquatable<FolderPath?>
     {
         public const char DirSep = '/';
@@ -158,7 +167,7 @@ namespace Nachonet.FileManager.Data
             throw new FileManagerIoException("cannot get directory of folder " + relativePath + " invalid path");
         }
 
-        public List<FileViewModel> GetFiles(IConfigManager configManager, RootFolders rootFolders, bool getDirectories)
+        public List<FileViewModel> GetFiles(IConfigManager configManager, RootFolders rootFolders, FilesSortOrder sortOrder, bool getDirectories)
         {
             var list = new List<FileViewModel>();
             if (IsRoot)
@@ -168,7 +177,7 @@ namespace Nachonet.FileManager.Data
                     foreach (var rootFolder in rootFolders)
                     {
                         bool accessible;
-                        int subFileCount = 0;
+                        int subFileCount;
                         var dir = rootFolder.Value;
 
                         try
@@ -189,6 +198,7 @@ namespace Nachonet.FileManager.Data
             }
             else
             {
+                var cmp = new FileSorter(StringComparison.CurrentCultureIgnoreCase); // sort ignores case even if the OS is case sensitive
                 if (getDirectories)
                 {
                     var parent = ToDirectory(rootFolders);
@@ -196,7 +206,8 @@ namespace Nachonet.FileManager.Data
                     DirectoryInfo[] subDirs;
                     try
                     {
-                        subDirs = parent.GetDirectories();
+                        subDirs = parent.GetDirectories("*");
+                        subDirs.Sort(cmp.GetDirectoryComparer(sortOrder));
                     }
                     catch (Exception)
                     {
@@ -227,6 +238,7 @@ namespace Nachonet.FileManager.Data
                     try
                     {
                         subFiles = parent.GetFiles();
+                        subFiles.Sort(cmp.GetFileComparer(sortOrder));
                     }
                     catch (Exception)
                     {

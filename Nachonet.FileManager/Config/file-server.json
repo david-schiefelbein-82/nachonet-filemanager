@@ -1,8 +1,8 @@
 {
   "root-folders": {
-    "/M-Drive/": "M:",
-    "/C-temp/": "C:\\temp"
-    },
+    "/dev/": "C:\\Dev",
+    "/temp/": "C:\\temp"
+  },
     "upload-directory": "C:\\Dev\\Upload",
     "upload-chunk-size": 512000,
     "comparison": "CurrentCultureIgnoreCase",

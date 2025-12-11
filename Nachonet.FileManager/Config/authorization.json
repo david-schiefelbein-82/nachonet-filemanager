@@ -22,8 +22,8 @@
     },
     {
       "id": "dave",
-      "label": "Dave Schiefelbein",
-      "type": "ActiveDirectoryUser",
+      "label": "Dave",
+      "type": "AppLocalUser",
       "roles": [
         "file-reader",
         "file-writer",
